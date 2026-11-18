@@ -1,0 +1,16 @@
+[Unit]
+Description=Daryoft API
+After=network.target
+
+[Service]
+User=daryoft
+Group=www-data
+WorkingDirectory=/opt/daryoft
+EnvironmentFile=/etc/daryoft.env
+ExecStart=/opt/daryoft/.venv/bin/gunicorn server.wsgi:application --bind 127.0.0.1:8210 --workers 1 --threads 2
+Restart=on-failure
+PrivateTmp=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
